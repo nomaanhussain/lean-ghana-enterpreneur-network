@@ -19,7 +19,6 @@ class ArticleAdmin(admin.ModelAdmin):
     	self.message_user(request, "%s succesfully marked as published" % message_bit)
     make_published.short_description = "Mark selected articles as published"
 
-    
 
 
 
