@@ -6,7 +6,7 @@ admin.site.register([RegisteredUser, Category])
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
 	list_display = ('name', 'day', 'venue', 'label')
-	list_filter = ('day', 'label', 'featured',)
+	list_filter = ('day', 'label', 'featured','Event_Show_Status',)
 	search_fields = ['name','day', 'cost', 'categories__category_title', 'event_manager__name']
 	
 

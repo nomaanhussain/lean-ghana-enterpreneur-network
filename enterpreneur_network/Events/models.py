@@ -69,12 +69,18 @@ class Event(models.Model):
 		('c', 'Completed'),
 		)
 
+	Event_Show = (
+        ('e', 'Enable Event'),
+        ('d', 'Disable Event'),
+    )
+
 	label = models.CharField(
 		max_length=1,
 		choices=EVENT_STATUS,
 		default='o',
 		help_text='Choose Event Status from here',
 		)
+	Event_Show_Status = models.CharField(max_length=1,choices=Event_Show,default='e',help_text='Either ENABLE and DISABLE your event')
 
 	class Meta:
 		ordering = ['-day']
