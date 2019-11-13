@@ -20,13 +20,12 @@ class ArticleAdmin(admin.ModelAdmin):
     make_published.short_description = "Mark selected articles as published"
 
 
-
-
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
 	list_display = ('user', 'post', 'timestamp')
 	list_filter = ('timestamp',)
 	search_fields = ['user__username','post__title']
+
 
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):

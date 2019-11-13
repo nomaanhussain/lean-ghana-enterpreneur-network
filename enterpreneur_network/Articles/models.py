@@ -1,10 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User	
-#from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 
 class Author(models.Model):
-    # user = models.OneToOneField(User, on_delete=models.CASCADE)
     author_name = models.CharField(max_length=250)
     profile_picture = models.ImageField(blank=True, null=True, help_text='Add picture of author')
     about_author = models.CharField(max_length=1000, help_text='Add something about author')
@@ -16,7 +14,6 @@ class Author(models.Model):
 
     class Meta:
         ordering = ['author_name']
-
 
     def __str__(self):
         return self.author_name
@@ -30,8 +27,6 @@ class Category(models.Model):
 
     def __str__(self):
         return self.category_title
-
-
 
 
 class Article(models.Model):
@@ -61,9 +56,9 @@ class Article(models.Model):
     class Meta:
         ordering = ['-timestamp']
 
-
     def __str__(self):
         return self.title
+
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

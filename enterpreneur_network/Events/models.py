@@ -1,5 +1,3 @@
-# ********************************INCOMPLETE***********************************************
-
 from django.db import models
 from django.contrib.auth.models import User	
 from django.utils.timezone import now
@@ -27,6 +25,7 @@ class RegisteredUser(models.Model):
     def __str__(self):
         return self.user.username
 
+
 class Organizer(models.Model):
 	name = models.CharField('Organizer Name', max_length=120)
 	phone = models.CharField('Contact Phone', max_length=20)
@@ -39,6 +38,7 @@ class Organizer(models.Model):
 
 	def __str__(self):
 		return self.name
+
 
 class Category(models.Model):
     category_title = models.CharField(max_length=100, help_text="Add category of event")
@@ -55,14 +55,13 @@ class Event(models.Model):
 	day = models.DateField("Day of Event",default=now)
 	start_time = models.TimeField("Starting Time",default=now)
 	end_time = models.TimeField("Ending Time",default=now)
-	#event_date = models.DateTimeField('Event Date',default=now)
 	picture = models.ImageField(help_text="Add picture related to event")
 	description = models.TextField('Event Description')
 	featured = models.BooleanField(default = False)
 	categories = models.ManyToManyField(Category)
 	cost = models.IntegerField(help_text="Add cost of event in case of free, write 0")
 	venue = models.ForeignKey(Venue, on_delete=models.SET_NULL,null=True)
-	event_manager = models.ForeignKey(Organizer, on_delete=models.CASCADE)
+	event_manager = models.ManyToManyField(Organizer,blank =False)
 	attendees = models.ManyToManyField(RegisteredUser, blank=True)
 	EVENT_STATUS = (
 		('o', 'On Time'),
@@ -80,30 +79,10 @@ class Event(models.Model):
 	class Meta:
 		ordering = ['-day']
 
-	def check_overlap(self, fixed_start, fixed_end, new_start, new_end):#, fixed_day, new_day):
-		overlap = False
-		if new_start == fixed_end or new_end == fixed_start:    #edge case
-			overlap = False
-		elif (new_start >= fixed_start and new_start <= fixed_end) or (new_end >= fixed_start and new_end <= fixed_end): #innner limits
-			overlap = True
-		elif new_start <= fixed_start and new_end >= fixed_end: #outter limits
-			overlap = True
-		return overlap
-
 	def clean(self):
 		if self.end_time <= self.start_time:
 			raise ValidationError('Ending times must after starting times')
-		events = Event.objects.filter(day=self.day)
-		if events.exists():
-			for event in events:
-				if self.check_overlap(event.start_time, event.end_time, self.start_time, self.end_time):#sevent.day, self.day):
-					raise ValidationError(
-						'There is an overlap with another event: ' + str(event.day) + ', ' + str(
-							event.start_time) + '-' + str(event.end_time))
-
+		
 	def __str__(self):
 		return self.name
-
-
-
 
