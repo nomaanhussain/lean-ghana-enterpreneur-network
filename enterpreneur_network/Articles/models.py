@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User	
 from ckeditor_uploader.fields import RichTextUploadingField
+from django.shortcuts import reverse
+from django.conf import settings
 
 class Author(models.Model):
     author_name = models.CharField(max_length=250)
@@ -53,6 +55,9 @@ class Article(models.Model):
 
     slug = models.SlugField()
 
+    def get_absolute_url(self):
+        return reverse('Articles:article-detail', kwargs = {'slug':self.slug})
+
     class Meta:
         ordering = ['-timestamp']
 
@@ -61,7 +66,7 @@ class Article(models.Model):
 
 
 class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
     content = models.TextField('Comment')
     post = models.ForeignKey(

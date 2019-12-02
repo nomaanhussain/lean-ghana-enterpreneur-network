@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+
+
+<div class="container mt-4">
+          <!-- Form -->
+                <form name="" >
+                  <!-- Heading -->
+                  <h3 class="dark-grey-text text-center">
+                    <strong>Contact Us</strong>
+                  </h3>
+                  <hr>
+
+                  <div class="md-form">
+                    <i class="fas fa-user prefix grey-text"></i>
+                    <input type="text" id="form3" class="form-control">
+                    <label for="form3">Your name</label>
+                  </div>
+                  <div class="md-form">
+                    <i class="fas fa-envelope prefix grey-text"></i>
+                    <input type="text" id="form2" class="form-control">
+                    <label for="form2">Your email</label>
+                  </div>
+
+                  <div class="md-form">
+                    <i class="fas fa-pencil-alt prefix grey-text"></i>
+                    <textarea type="text" id="form8" class="md-textarea"></textarea>
+                    <label for="form8">Your message</label>
+                  </div>
+
+                  <div class="text-center">
+                    <button class="btn btn-indigo">Send</button>
+                    <hr>
+                    
+                  </div>
+
+                </form>
+                <!-- Form -->
+           </div>
+
+<form action="{% url 'Articles:contact-us' %}" method="post">
+	{% csrf_token %}
+	{% for field in form %}
+	<div class="form-group">
+		{{field.errors}}
+		{{field}}
+		{{field.label_tag}}
+	</div>
+	{% endfor %}
+	<input type="submit" value="Send">
+</form>
+
+{{email_status}}
+
+{% endblock %}

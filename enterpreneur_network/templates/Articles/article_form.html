@@ -1,0 +1,24 @@
+
+<style> 
+        input{ 
+            width:100%; 
+            padding: 12px; 
+            } 
+</style> 
+
+<div class="col-sm-7 mx-5">
+    <h2>Add Articles</h2>
+</div>
+
+<form method="post">
+  
+    {% csrf_token %}
+    {% for field in form %}
+    {{form.as_p}}
+  {% endfor %}
+
+<div class="form-group row mx-5">
+    <button type="submit" class="btn btn-info btn-block">Submit</button>
+</div>
+
+</form>
