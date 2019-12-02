@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+	<h3 class="mt-4" style="text-align: center">{{name}} </h3>
+	<div class="row mb-4 wow fadeIn">
+                  {% if Articles %}
+                  {% for article in Articles %}
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-6 mb-4">
+
+                        <!--Card-->
+                        <div class="card">
+
+                            <!--Card image-->
+                            <div class="view overlay">
+                                <img src="{{article.thumbnail.url}}" class="card-img-top" alt="" style="width: 25rem; height: 12rem;">
+                                <a href="{{article.get_absolute_url}}">
+                                    <div class="mask rgba-white-slight"></div>
+                                </a>
+                            </div>
+
+                            <!--Card content-->
+                            <div class="card-body">
+                              <p class="card-text">{{article.timestamp}} </p>
+                                
+                                <!--Title-->
+                                <h4 class="card-title">{{article}}</h4>
+                                <!--Text-->
+                    
+                            </div>
+
+                        </div>
+                        <!--/.Card-->
+
+                    </div>
+                    <!--Grid column-->
+                    {% endfor %}
+                    {% else %}
+                      <h4> There is no article of category {{name}} </h4>
+                    {% endif %}
+
+                </div>
+                <!--Grid row-->
+            </div>
+
+{% endblock %}

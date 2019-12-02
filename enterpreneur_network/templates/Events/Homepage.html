@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2> Events </h2>
+<a href="{% url 'Events:calendar' %}">Event Calender </a> |
+<a href="{% url 'Events:startup-events' %}"> Events </a> |
+
+<h2> Articles </h2>
+<a href="{% url 'Articles:articles' %}">List of all Articles </a>
+
+<h2> Contact Us </h2>
+<a href="{% url 'Articles:contact-us' %}">Contact Us</a>
+
+<h2> Account </h2>
+<a href="{% url 'account_login'%}">Login</a>
+<a href="{% url 'account_logout'%}">Logout</a>
+<a href="{% url 'account_signup'%}">Signup</a>
+
+{% endblock %}

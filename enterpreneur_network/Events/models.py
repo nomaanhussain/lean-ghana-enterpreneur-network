@@ -3,21 +3,42 @@ from django.contrib.auth.models import User
 from django.utils.timezone import now
 from datetime import date
 from django.core.exceptions import ValidationError
+from django.shortcuts import reverse
+from django.conf import settings
 
 class Venue(models.Model):
     name = models.CharField('Venue Name', max_length=120)
-    address = models.CharField(max_length=300)
-    zip_code = models.CharField('Zip/Post Code', max_length=12)
+    address = models.CharField(max_length=300,blank=True, null=True)
+    zip_code = models.CharField('Zip/Post Code', max_length=12,blank=True, null=True)
+
+    VENUE_STATUS = (
+		('on', 'Online'),
+		('os', 'Onsite'),
+		)
+    venue_status_label = models.CharField(
+		max_length=2,
+		choices=VENUE_STATUS,
+		default='os',
+		help_text='Choose Venue either ONLINE or ONSITE',
+		)
+
 
     class Meta:
         ordering = ['name']
+
+    def check_status_venue(self):
+    	if self.venue_status_label == 'on':
+    		print("Trueeee")
+    		return True
+    	else:
+    		return False
  
     def __str__(self):
         return self.name
  
  
 class RegisteredUser(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['user']
@@ -62,7 +83,8 @@ class Event(models.Model):
 	cost = models.IntegerField(help_text="Add cost of event in case of free, write 0")
 	venue = models.ForeignKey(Venue, on_delete=models.SET_NULL,null=True)
 	event_manager = models.ManyToManyField(Organizer,blank =False)
-	attendees = models.ManyToManyField(RegisteredUser, blank=True)
+	attendees = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True)
+	slug = models.SlugField()
 	EVENT_STATUS = (
 		('o', 'On Time'),
 		('d', 'Delayed'),
@@ -81,6 +103,9 @@ class Event(models.Model):
 		help_text='Choose Event Status from here',
 		)
 	Event_Show_Status = models.CharField(max_length=1,choices=Event_Show,default='e',help_text='Either ENABLE and DISABLE your event')
+
+	def get_absolute_url(self):
+		return reverse('Events:startup-event-detail', kwargs = {'slug':self.slug})
 
 	class Meta:
 		ordering = ['-day']
