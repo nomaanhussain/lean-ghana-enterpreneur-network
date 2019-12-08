@@ -1,15 +1,14 @@
-{% extends 'base.html' %}
+{% extends 'generic_base.html' %}
+
 {% block style %}
 <style>
- 
 	img {
 		max-width: 25rem;
     max-height: 20rem;
     display: block;
     margin-left: auto;
     margin-right: auto;
-   
-}
+      }
 
 	/* p {
     color: #808080;
@@ -17,200 +16,124 @@
     font-size:12pt;
   }*/
 </style>
- {% endblock %}
+{% endblock %}
 
-  {% block content %}
-
-   <!--Main layout-->
-  <main class="mt-5 pt-5">
+{% block content %}
+  <!--Main layout-->
+  <main class="mt-4 pt-5">
     <div class="container">
-
       <!--Section: Post-->
       <section class="mt-4">
-
         <!--Grid row-->
         <div class="row">
-
           <!--Grid column-->
           <div class="col-md-8 mb-4">
-
-            <!--Featured Image-->
+            <!--Featured Image start-->
             <div class="card mb-4 wow fadeIn">
-
               <img src="{{article_detail.thumbnail.url}}" class="img-fluid" alt="" style="height: 20rem;width:50rem;">
-
             </div>
-            <!--/.Featured Image-->
+            <!--Featured Image end-->
 
-            <!--Card-->
+            <!--Card start|Title of article-->
             <div class="card mb-4 wow fadeIn">
-
               <!--Card content-->
               <div class="card-body text-center">
-                <h1>{{article_detail.title}}</h1>
+                <h1 style="font-weight: 700;">{{article_detail.title}}</h1>
               </div>
-
             </div>
-            <!--/.Card-->
+            <!--Card end-->
 
-            <!--Card-->
+            <!--Card start| aryticle description-->
             <div class="card mb-4 wow fadeIn">
-
               <!--Card content-->
               <div class="card-body">
-
                 <p> {{article_detail.content|safe}}</p>
-
               </div>
-
             </div>
-            <!--/.Card-->
+            <!--/.Card end-->
 
-            <!--Card-->
+            <!--Card start|Author links-->
             <div class="card mb-4 wow fadeIn">
-
-
-
-
-
-
               <div class="card-header font-weight-bold">
                 <span>About author</span>
                 <span class="pull-right">
-                  {% if article_detail.author.facebook %}
+                {% if article_detail.author.facebook %}
                   <a href="{{article_detail.author.facebook}}" target="_blank">
                     <i class="fab fa-facebook-f mr-2"></i>
                   </a>
-                  {% endif %}
-                  <a href="">
-                    <i class="fab fa-twitter mr-2"></i>
-                  </a>
-                  {% if article_detail.author.insta %}
+                {% endif %}
+                  
+                {% if article_detail.author.insta %}
                   <a href="">
                     <i class="fab fa-instagram mr-2"></i>
                   </a>
-                  {% endif %}
-                  {% if article_detail.author.linkedin %}
+                {% endif %}
+                {% if article_detail.author.linkedin %}
                   <a href="{{article_detail.author.linkedin}}" target="_blank">
                     <i class="fab fa-linkedin-in mr-2"></i>
                   </a>
-                  {% endif %}
+                {% endif %}
                 </span>
               </div>
+              <!-- Card end -->
 
-              <!--Card content-->
+              <!--Card content| Author description-->
               <div class="card-body">
-
                 <div class="media d-block d-md-flex mt-3">
                   <img class="d-flex mb-3 mx-auto z-depth-1" src="https://mdbootstrap.com/img/Photos/Avatars/img (30).jpg"
                     alt="Generic placeholder image" style="width: 100px;">
                   <div class="media-body text-center text-md-left ml-md-3 ml-0">
+                    <!-- Author name -->
                     <h5 class="mt-0 font-weight-bold">{{article_detail.author.author_name}}
                     </h5>
+                    <!-- About author -->
                     {{article_detail.author.about_author}} <hr>
                     {% if article_detail.author.website %}
-                        Official website: <a href="{{article_detail.author.website}}" target="_blank">{{article_detail.author.website}}</a>
+                        <!-- Official website link -->
+                        Official website: <a href="{{article_detail.author.website}}" target="_blank" class="text-info">{{article_detail.author.website}}</a>
                     {% endif %}
+
+                    {% if article_detail.author.others %}
+                      Others: <a href="{{article_detail.author.others}}" target="_blank" class="text-info">{{article_detail.author.others}}</a>
+                    {% endif %} 
                   </div>
                 </div>
-
               </div>
-
+              <!-- Card content end -->
             </div>
             <!--/.Card-->
-
-           
           </div>
           <!--Grid column-->
 
-          <!--Grid column-->
+          <!--Grid column|Related Articles-->
           <div class="col-md-4 mb-4">
-            <!--Card-->
+            <!--Card start-->
             <div class="card mb-4 wow fadeIn">
-
               <div class="card-header">Related articles</div>
-
-              <!--Card content-->
               <div class="card-body">
-
                 <ul class="list-unstyled">
-                  <li class="media">
-                    <img class="d-flex mr-3" src="https://mdbootstrap.com/img/Photos/Others/placeholder7.jpg" alt="Generic placeholder image">
-                    <div class="media-body">
-                      <a href="">
-                        <h5 class="mt-0 mb-1 font-weight-bold">List-based media object</h5>
-                      </a>
-                      Cras sit amet nibh libero, in gravida nulla (...)
-                    </div>
-                  </li>
+                  {% for article in categories %}
                   <li class="media my-4">
-                    <img class="d-flex mr-3" src="https://mdbootstrap.com/img/Photos/Others/placeholder6.jpg" alt="An image">
+                    <img class="d-flex mr-3" src="{{article.thumbnail.url}}" alt="Generic placeholder image"
+                    style="height: 5rem;width: 5rem;">
                     <div class="media-body">
-                      <a href="">
-                        <h5 class="mt-0 mb-1 font-weight-bold">List-based media object</h5>
+                      <a href="{{article.get_absolute_url}}">
+                        <h5 class="mt-0 mb-1 font-weight-bold text-info">{{article.title}}</h5>
                       </a>
-                      Cras sit amet nibh libero, in gravida nulla (...)
+                     Author: {{article.author}} <br>
+                     {{article.timestamp}}
                     </div>
                   </li>
-                  <li class="media">
-                    <img class="d-flex mr-3" src="https://mdbootstrap.com/img/Photos/Others/placeholder5.jpg" alt="Generic placeholder image">
-                    <div class="media-body">
-                      <a href="">
-                        <h5 class="mt-0 mb-1 font-weight-bold">List-based media object</h5>
-                      </a>
-                      Cras sit amet nibh libero, in gravida nulla (...)
-                    </div>
-                  </li>
+                  {% endfor %}
                 </ul>
-
               </div>
-
             </div>
-            <!--/.Card-->
-
+            <!--/.Card end-->
           </div>
           <!--Grid column-->
-
         </div>
-        <!--Grid row-->
-
-          <!-- Form -->
-                <form name="" >
-                  <!-- Heading -->
-                  <h3 class="dark-grey-text text-center">
-                    <strong>Contact Us</strong>
-                  </h3>
-                  <hr>
-
-                  <div class="md-form">
-                    <i class="fas fa-user prefix grey-text"></i>
-                    <input type="text" id="form3" class="form-control">
-                    <label for="form3">Your name</label>
-                  </div>
-                  <div class="md-form">
-                    <i class="fas fa-envelope prefix grey-text"></i>
-                    <input type="text" id="form2" class="form-control">
-                    <label for="form2">Your email</label>
-                  </div>
-
-                  <div class="md-form">
-                    <i class="fas fa-pencil-alt prefix grey-text"></i>
-                    <textarea type="text" id="form8" class="md-textarea"></textarea>
-                    <label for="form8">Your message</label>
-                  </div>
-
-                  <div class="text-center">
-                    <button class="btn btn-indigo">Send</button>
-                    <hr>
-                    
-                  </div>
-
-                </form>
-                <!-- Form -->
-
       </section>
       <!--Section: Post-->
-
     </div>
   </main>
   <!--Main layout-->
@@ -236,5 +159,6 @@
 {% if article_detail.author.others %}
 {{article_detail.author.others}}
 {% endif %} {% endcomment %}
-  {% endblock %}
-}
+
+{% endblock %}
+

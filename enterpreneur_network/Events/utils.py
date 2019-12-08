@@ -16,9 +16,11 @@ class Calendar(HTMLCalendar):
 		d = ''
 		for event in events_per_day:
 			a = event.get_absolute_url()
-			d += f'<li> <a href="{a}">Event Detail</a> {event.name}</li>'
+			d += f'<li class="text-info" > <a class="grey-text" href="{a}">{event.name}</a></li>'
+			# d = f'<li>bluecolor</li>'  # circle
 
 		if day != 0:
+			# print("aa",a)
 			return f"<td><span class='date'>{day}</span><ul> {d} </ul></td>"
 		return '<td></td>'
 

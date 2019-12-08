@@ -1,47 +1,43 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
+{% load static %}
 <head>
-  <meta charset='utf-8'>
+    <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>lean ghana</title>
+    <title>LEANGHANA</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="{% static 'css/style.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/about_us.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Calistoga&display=swap" rel="stylesheet">
   
-  <!-- Bootstrap core CSS -->
-  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-  <link rel='stylesheet' type='text/css' media='screen' href="{% static 'css/main.css' %}">
-  <!-- Material Design Bootstrap -->
-  <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
-  <!-- Your custom styles (optional) -->
-  <link href="{% static 'css/style.min.css' %}" rel="stylesheet">
-
+    <link rel='stylesheet' type='text/css' media='screen' href="{% static 'css/main.css' %}">
     <link rel='stylesheet' type='text/css' media='screen' href="{% static 'css/home.css' %}">
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.8.10/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
         integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.8.10/js/bootstrap.min.js"></script>
     <!-- Datepicker -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 
-  {% block style %}
-  {% endblock %}
-
+{% block style %}
+{% endblock %}
 </head>
 
 <body>
+  <!-- Navbar start  -->
   {% block navbar %}
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
-
-
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{% url 'Events:homepage' %}">
                 <h3> LeanGhana</h3>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -52,73 +48,70 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto left__navList">
                     <li class="nav-item ">
-                        <a class="nav-link text-uppercase" href="#">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link text-uppercase" href="{% url 'Events:homepage' %}">Home <span class="sr-only">(current)</span>
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-uppercase" href="#">About Us</a>
+                        <a class="nav-link text-uppercase" href="{% url 'Articles:about-us' %}">About Us</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-uppercase" href="{% url 'Articles:articles' %}">Articles & Contents</a>
                     </li>
                     <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-           PROGRAMS & EVENTS
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{% url 'Events:calendar' %}">EVENT CALENDER</a>
-          <a class="dropdown-item" href="{% url 'Events:startup-events' %}">UPCOMING EVENTS</a>
-          
-      </li>
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        PROGRAMS & EVENTS
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                              <a class="dropdown-item" href="{% url 'Events:calendar' %}">EVENT CALENDER</a>
+                              <a class="dropdown-item" href="{% url 'Events:startup-events' %}">UPCOMING EVENTS
+                              </a>
+                        </div>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link text-uppercase"
-                            href="https://entrepreneursnet.net/membership-website/business-dashboard/">Member</a>
+                            href="{% url 'account_signup'%}">Member</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto ">
+                    {% if request.user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link " href="https://gust.com/users/sign_in">Sign In</a>
+                        <a class="nav-link " href="{% url 'account_logout'%}">Logout</a>
                     </li>
+                    {% else %}
                     <li class="nav-item">
-                        <a class="nav-link px-3 menu-button btn btn-primary"
-                            href="https://gust.com/signup/entrepreneurs">Get Started</a>
+                        <a class="nav-link " href="{% url 'account_login'%}">Sign In</a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link px-3 menu-button btn btn-info"
+                            href="#">Get Started</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
   {% endblock %}
+  <!-- Navbar end -->
 
-<div class="mt-5 pt-4">
-  {% if messages %}
-    {% for message in messages %}
-    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-      {{message}}
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    {% endfor %}
-  {% endif %}
-</div>
-
-
+  <!-- Content start -->
   {% block content %}
   {% endblock %}
+  <!-- Content end -->
+
+  <!-- Pagination Start -->
   {% block pagination %}
     <nav class="d-flex justify-content-center wow fadeIn">
-      
-            {% if is_paginated %}
+        {% if is_paginated %}
         <ul class="pagination pg-blue">
-
           <!--Arrow left-->
-           {% if page_obj.has_previous %}
+          {% if page_obj.has_previous %}
           <li class="page-item">
             <a class="page-link" href="{{ request.path }}?page={{ page_obj.previous_page_number }}" aria-label="Previous">
               <span aria-hidden="true">&laquo;</span>
               <span class="sr-only">Previous</span>
             </a>
           </li>
-           {% endif %}
+          {% endif %}
           <li class="page-item active">
             <a class="page-link" href="#"> Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
               <span class="sr-only">(current)</span>
@@ -132,54 +125,44 @@
             </a>
           </li>
           {% endif %}
-
         </ul>
         {% endif %}
-    
-      </nav>
-     {% endblock %} 
-</div>
+    </nav>
+  {% endblock %} 
+  <!-- Pagination end -->
 
-       
-
+  <!-- Footer start -->
   {% block footer %}
-  <!--Footer-->
-  <footer class="footer">
-
+    <footer class="footer mt-5">
         <section class="container footer__main">
             <div class="row">
-
-
                 <div class="col-sm-6 col-xl-3">
-
                     <h4 class="text-underline"> Company </h4>
                     <a href="/about" class="footer-anchor"> About Us </a>
                     <a href="/careers" class="footer-anchor"> Careers </a>
-                    <a href="/contact" class="footer-anchor"> Contact Us </a>
-
+                    <a href="{% url 'Articles:contact-us' %}" class="footer-anchor"> Contact Us </a>
                 </div>
                 <div class="col-sm-6 col-xl-3">
                     <h4> Solutions </h4>
                     <a href="/founders/start" class="footer-anchor"> Start a Company </a>
                     <a href="/founders/grow" class="footer-anchor"> Grow Your Startup </a>
                     <a href="/founders/raise" class="footer-anchor"> Raise Capital </a>
-
                 </div>
                 <div class="col-sm-6 col-xl-3">
                     <h4> Products </h4>
                     <a href="/launch?utm_source=marketing-gust.com&utm_medium=footer&utm_campaign=core-caas"
                         target="_blank" class="footer-anchor"> Gust Launch </a>
-                    <a href="https://cofounders.gust.com/" target="_blank" class="footer-anchor"> Co-Founder Equity
-                        Split </a>
+                    <a href="https://cofounders.gust.com/" target="_blank" class="footer-anchor">
+                     Co-Founder Equity
+                        Split
+                    </a>
                     <a href="/investors" class="footer-anchor"> Gust for Investors </a>
                     <a href="https://gust.com/accelerators" class="footer-anchor"> Gust for Accelerators </a>
-
                 </div>
                 <div class="col-sm-6 col-xl-3">
                     <h4> Resources </h4>
-                    <a href="/launch/blog" target="_blank" class="footer-anchor"> Blog </a>
+                    <a href="{% url 'Articles:articles' %}" class="footer-anchor"> Blog </a>
                     <a href="https://gust.helpscoutdocs.com/" target="_blank" class="footer-anchor"> Support </a>
-
                 </div>
             </div>
         </section>
@@ -188,7 +171,7 @@
             <div class="footer__slim__left">
                 <a href="/tos" class="footer-anchor mx-1"> Terms of Service </a>
                 <a href="/privacy-policy" class="footer-anchor mx-1"> Privacy Policy </a>
-                <span class="footer-text mx-1"> © Gust 2019 </span>
+                <span class="footer-text mx-1"> © LeanGhana 2019 </span>
             </div>
             <div class="footer__slim__right mx-auto mx-md-0">
                 <a href="https://twitter.com/gustly" target="_blank" class="btn--social mx-auto text-dark">
@@ -201,12 +184,11 @@
             </div>
         </section>
 
-
     </footer>
   {% endblock %}
-  <!--/.Footer-->
+  <!-- Footer end -->
 
-  <!-- SCRIPTS -->
+<!-- SCRIPTS -->
   <!-- JQuery -->
   <script type="text/javascript" src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
   <!-- Bootstrap tooltips -->
@@ -215,10 +197,7 @@
   <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
   <!-- MDB core JavaScript -->
   <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
-  <!-- Initializations -->
-  <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+  <script type="text/javascript" src="{% static 'js/timer.js' %}"></script>
 
 <script>
     window.onscroll = () => {
@@ -231,11 +210,5 @@
         }
     }
 </script>
-  </body>
-  
-
-
-
-
- 
+</body>
 </html>

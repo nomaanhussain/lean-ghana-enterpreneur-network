@@ -1,131 +1,145 @@
-{% extends 'base.html' %}
+{% extends 'generic_base.html' %}
+
 {% block content %}
-<main class="mt-3 pt-5">
-    <div class="container">
-    	<section class="mt-4">
 
-        <!--Grid row-->
-        <div class="row">
+<style>
+hr { 
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 0.5px;
+    border-color:#5bc0de;
+} 
+</style>
 
-          <!--Grid column-->
-          <div class="col-md-8 mb-4">
-
-            <!--Featured Image-->
-            <div class="card mb-4 wow fadeIn">
-
-              <img src="{{event.picture.url}}" class="img-fluid" alt="" style="height: 20rem;width:50rem;">
-
-            </div>
+<main class="mt-5 pt-5">
+  <!-- messages -->
+  <div class="container">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          {{message}}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-            <!--Grid column-->
-          <div class="col-md-4 mb-4">
-
-            <!--Card: Jumbotron-->
-            <div class="card blue-gradient mb-4 wow fadeIn">
-
-              <!-- Content -->
-              <div class="card-body text-white text-center">
-
-                <h4 class="mb-4">
-                  <strong>Learn Bootstrap 4 with MDB</strong>
-                </h4>
-                <p>
-                  <strong>Best & free guide of responsive web design</strong>
-                </p>
-                <p class="mb-4">
-                  <strong>The most comprehensive tutorial for the Bootstrap 4. Loved by over 500 000 users. Video
-                    and written versions available. Create your own, stunning website.</strong>
-                </p>
-                <a target="_blank" href="https://mdbootstrap.com/education/bootstrap/" class="btn btn-outline-white btn-md">Start
-                  free tutorial
-                  <i class="fas fa-graduation-cap ml-2"></i>
-                </a>
-
-              </div>
-              <!-- Content -->
-            </div>
-            <!--Card: Jumbotron-->
-
-            <!--Card : Dynamic content wrapper-->
-            <div class="card mb-4 text-center wow fadeIn">
-
-              <div class="card-header">Do you want to get informed about new articles?</div>
-
-              <!--Card content-->
-              <div class="card-body">
-
-                <!-- Default form login -->
-                <form>
-
-                  <!-- Default input email -->
-                  <label for="defaultFormEmailEx" class="grey-text">Your email</label>
-                  <input type="email" id="defaultFormLoginEmailEx" class="form-control">
-
-                  <br>
-
-                  <!-- Default input password -->
-                  <label for="defaultFormNameEx" class="grey-text">Your name</label>
-                  <input type="text" id="defaultFormNameEx" class="form-control">
-
-                  <div class="text-center mt-4">
-                    <button class="btn btn-info btn-md" type="submit">Sign up</button>
-                  </div>
-                </form>
-                <!-- Default form login -->
-
-              </div>
-
-            </div>
-            <!--/.Card : Dynamic content wrapper-->
-
-            <!--Card-->
-            <div class="card mb-4 wow fadeIn">
-
-              <div class="card-header">Related articles</div>
-
-              <!--Card content-->
-              <div class="card-body">
-
-                <ul class="list-unstyled">
-                  <li class="media">
-                    <img class="d-flex mr-3" src="https://mdbootstrap.com/img/Photos/Others/placeholder7.jpg" alt="Generic placeholder image">
-                    <div class="media-body">
-                      <a href="">
-                        <h5 class="mt-0 mb-1 font-weight-bold">List-based media object</h5>
-                      </a>
-                      Cras sit amet nibh libero, in gravida nulla (...)
-                    </div>
-                  </li>
-                  <li class="media my-4">
-                    <img class="d-flex mr-3" src="https://mdbootstrap.com/img/Photos/Others/placeholder6.jpg" alt="An image">
-                    <div class="media-body">
-                      <a href="">
-                        <h5 class="mt-0 mb-1 font-weight-bold">List-based media object</h5>
-                      </a>
-                      Cras sit amet nibh libero, in gravida nulla (...)
-                    </div>
-                  </li>
-                  <li class="media">
-                    <img class="d-flex mr-3" src="https://mdbootstrap.com/img/Photos/Others/placeholder5.jpg" alt="Generic placeholder image">
-                    <div class="media-body">
-                      <a href="">
-                        <h5 class="mt-0 mb-1 font-weight-bold">List-based media object</h5>
-                      </a>
-                      Cras sit amet nibh libero, in gravida nulla (...)
-                    </div>
-                  </li>
-                </ul>
-
-              </div>
-
-            </div>
-            <!--/.Card-->
-
+      {% endfor %}
+    {% endif %}
+  </div>
+  <div class="container">
+    <section class="mt-4">
+      <!--Grid row-->
+      <div class="row">
+        <!--Grid column-->
+        <div class="col-md-8 mb-4">
+          <!--Featured Image-->
+          <div class="card mb-4 wow fadeIn">
+            <img src="{{event.picture.url}}" class="img-fluid" alt="" style="height: 20rem;width:50rem;">
           </div>
-          <!--Grid column-->
+          <div class="wow fadeIn">
+            <!--Section heading-->
+            <h2 class="h1 mb-9 mt-4" style="text-align: left; font-weight: 1000;">
+              {% if event.venue.check_status_venue %}
+                  WEBINAR - {{event.name}}
+              {% else %}
+                  EVENT - {{event.name}}
+              {% endif %}
+            </h2>
 
-    </div>
-</section>
+            <!--Section description-->
+            <h5 class="mt-4" style="text-align: left; font-weight: 1000;"> Event Description :</h5>
+            <p class="mt-4 text-black-50 font-weight-light" style="text-align: left;">{{event.description}} </p>
+            <div class="container mt-4">
+              <!-- Registration form|button -->
+              <form action="{{event.get_absolute_url}}" method="post">
+                {% csrf_token %}
+                  <button type="submit" class="btn btn-outline-info btn-lg btn-block">Register Now</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!--Grid column-->
+        <div class="col-md-4 mb-4">
+          <!--Card : Dynamic content wrapper-->
+          <div class="card mb-4 text-center wow fadeIn">
+            <!--Card content-->
+            <div class="card-body">
+              <!-- Date -->
+              <h5><i class="far fa-calendar-alt text-info"></i><b> DATE</b></h5>
+              <div class="grey-text">{{event.day}}</div>
+                <hr>
+                <!-- Time -->
+                <h5><i class="far fa-clock text-info" ></i><b> TIME</b></h5>
+                <div class="grey-text">START TIME : {{event.start_time}} <br>
+                  END TIME : {{event.end_time}}
+                </div>
+                <hr>
+                <!-- Cost -->
+                <h5><i class="fas fa-hand-holding-usd text-info"></i><b> COST</b></h5>
+                <div class="grey-text">
+                  {% if event.cost == 0 %}
+                    Free
+                  {% else %}
+                    {{event.cost}}
+                  {% endif %}
+                </div>
+                <hr>
+                <!-- Label -->
+                <h5><i class="fas fa-tags text-info"></i><b> LABEL</b></h5>
+                <div class="grey-text">{{event.get_label_display}}</div>
+                <hr>
+                <!-- Category -->
+                <h5><i class="fas fa-folder text-info"></i><b> CATEGORY</b></h5>
+                  <div class="grey-text">
+                     <br/>{% for category in event.categories.all %}{{category}}<br/>{% endfor %}
+                  </div>
+            </div>
+          </div>
+          <!--/.Card : Dynamic content wrapper-->
+
+          <!--Card : Dynamic content wrapper-->
+          <div class="card mb-4 text-center wow fadeIn">
+            <div class="card-header"><h4><b>VENUE</b></h4></div>
+              <!--Card content-->
+              <div class="card-body">
+                <!-- Venue -->
+                <h5><b> VENUE NAME </b></h5>
+                <div class="grey-text">{{event.venue.name}}</div> <hr>
+                   <h5><i class="fas fa-map-marker-alt text-info"></i><b> LOCATION</b></h5>
+                <div class="grey-text">{{event.venue.address}}</div>
+              </div>
+          </div>
+          <!--/.Card : Dynamic content wrapper-->
+
+          <!--Card : Dynamic content wrapper-->
+          <div class="card mb-4 text-center wow fadeIn">
+              <div class="card-header"><h4><b>ORGANIZERS</b></h4></div>
+              <!--Card content-->
+              <div class="card-body">
+                {% for organizer in event.event_manager.all %}
+                  <div class="grey-text">
+                    <div class="media">
+                      <img class="d-flex ml-4 mr-4 mx-auto" src="{{organizer.organizer_picture.url}}" alt="Generic placeholder image"
+                      style="height: 10rem;width: 100%;">
+                    </div>
+                    NAME {{organizer.name}} <br>
+                    PHONE {{organizer.phone}} <br>
+                    EMAIL {{organizer.email_address}} <br>
+                    {% if website %} WEBSITE {{organizer.website}} {% endif %} <br>
+                  </div>
+                {% endfor %}
+              </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+{% comment %}
 <img src="{{event.picture.url}}" class="img-responsive" style="height: 400px"> <br>
 {% if event.venue.check_status_venue %}
  	Webinar
@@ -172,6 +186,8 @@
 </form>
 
 </div>
+{% endcomment %}
+
 </main>
 
 {% endblock %}

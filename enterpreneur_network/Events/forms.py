@@ -14,7 +14,7 @@ class EventSearch(forms.Form):
 
 class WebinarMailForm(forms.Form):
 	Subject = forms.CharField(required=True)
-	Content = forms.CharField(required=True)
+	Content = forms.CharField(widget=forms.Textarea,required=True)
 
 '''
 {% extends "admin/app_index.html" %}

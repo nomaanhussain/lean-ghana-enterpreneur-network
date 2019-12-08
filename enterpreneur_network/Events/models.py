@@ -8,7 +8,7 @@ from django.conf import settings
 
 class Venue(models.Model):
     name = models.CharField('Venue Name', max_length=120)
-    address = models.CharField(max_length=300,blank=True, null=True)
+    address = models.CharField(max_length=300)
     zip_code = models.CharField('Zip/Post Code', max_length=12,blank=True, null=True)
 
     VENUE_STATUS = (

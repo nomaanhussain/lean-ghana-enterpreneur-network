@@ -6,7 +6,7 @@ from django.conf import settings
 
 class Author(models.Model):
     author_name = models.CharField(max_length=250)
-    profile_picture = models.ImageField(blank=True, null=True, help_text='Add picture of author')
+    profile_picture = models.ImageField(help_text='Add picture of author')
     about_author = models.CharField(max_length=1000, help_text='Add something about author')
     website = models.URLField(max_length=250, blank=True, null=True, help_text="Add URL of your website")
     linkedin = models.URLField(max_length=250, blank=True, null=True, help_text="Add URL of your linkedin account")
@@ -45,7 +45,7 @@ class Article(models.Model):
         ('p', 'Published'),
         ('w', 'Withdrawn'),
     )
-    #featured = models.BooleanField()
+    featured = models.BooleanField()
     status = models.CharField(
         max_length=1,
         choices=ARTICLE_STATUS,
