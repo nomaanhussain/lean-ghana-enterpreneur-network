@@ -1,0 +1,153 @@
+html{
+    overflow-x: hidde;
+}
+.bg-nav{
+    background-color: transparent !important;
+} 
+
+.nav-link{
+    color: rgb(0, 0, 0) !important;
+    font-family: proxima-nova, "Proxima Nova", sans-serif;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    line-height: 24px !important;
+    padding: 8px !important
+}
+.left__navList a{
+    font-size: 13px !important;
+}
+.menu-button{
+    color: rgb(255, 255, 255) !important
+}
+.text-nav a{
+    color: white !important
+}
+
+.carousel-item img{
+    height: 36em !important;
+}
+
+main{
+    position: relative;
+    
+}
+.content h2 {
+    font-family: proxima-nova, "Proxima Nova", sans-serif;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 38px;
+}
+.features__illustration {
+    width: 100%;
+    height: auto;
+}
+
+.content p {
+    font-size: 20px;
+    line-height: 29px;
+    font-family: proxima-nova, "Proxima Nova", sans-serif;
+    font-weight: 400;
+}
+
+.countdown-timer li {
+    display: inline-block;
+    font-size: 0.8em;
+    list-style-type: none;
+    padding: 1em;
+    text-transform: uppercase;
+    color: gray;
+  }
+  
+  .countdown-timer  li span {
+    display: block;
+    font-size: 2.1em;
+    color: white !important;
+    
+  }
+  .event-date-box{
+    display:block;
+    align-items: center;
+
+  }
+  /*.supsub {
+    display: flex;
+    flex-direction: column;
+    margin-left: 2px;
+    }
+  .subscript {
+    
+    display:flex;
+    }
+    
+  .superscript {
+    
+    display:flex; 
+    }*/
+  
+.event-detail-box h5:hover{
+    color: #5bc0de !important
+}
+
+/* .event-date-box{
+    display: inline-block; 
+    position: relative;
+    left: -0.9em;
+    top: -4em
+} */
+
+
+
+.cards img{
+    width: 100%;
+}
+
+.cards .card{
+    border: none !important
+}
+
+.cards p{
+    font-size: 80%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: rgba(0, 0, 0,0.7);
+    
+}
+
+footer{
+    background-color: #f5f5f5
+}
+footer h4{
+    border-bottom: 1px solid #6e6e6e;
+    line-height: 40px !important;
+    font-weight: 600 !important;
+    font-size: 18px !important;
+    margin-block-start: 1.33em;
+    margin-block-end: 1.33em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px
+}
+.footer__main .footer-anchor {
+    display: block;
+    margin-bottom: 8px;
+}
+
+footer .footer-anchor {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #6e6e6e;
+    text-decoration: none !important;
+}
+
+.footer__slim{
+    padding: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border-top: 1px solid #e3e3e3;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.footer__slim .btn--social{
+    font-size: 20px;
+}

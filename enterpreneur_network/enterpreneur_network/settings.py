@@ -113,7 +113,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'enterpreneur_network',
         'USER': 'postgres',
-        'PASSWORD': '******',
+        'PASSWORD': '13132001Aa',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -142,8 +142,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'your gmail '
-EMAIL_HOST_PASSWORD = 'gmail password'
+EMAIL_HOST_USER = 'leanghana04@gmail.com'
+EMAIL_HOST_PASSWORD = 'LeanGhana123'
 EMAIL_PORT = 587
 
 

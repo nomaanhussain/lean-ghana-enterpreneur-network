@@ -1,0 +1,30 @@
+
+{% extends "admin/app_index.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {% trans 'Webinar Email' %}{% endblock %}
+{% block branding %}
+<h1 id="site-name">{% trans header %}</h1>
+{% endblock %}
+{% block content %}
+
+<fieldset class="module aligned wide extrapretty">
+    <h2>Email Webinar link to Attendees <a href="{% url 'admin:Events_event_changelist' %}" style="color:white">Event List</a>
+    <a href="{% url 'admin:Events_event_change' object_id=event_id %}" style="color:white"> Back</a> </h2> 
+    </fieldset>
+<h3>Total Attendees: {{total_attendees}}</h3>
+<form action="{% url 'Events:send_email' event_id=event_id %}" method='post'>  
+	{% csrf_token %}
+	{% for field in form %}
+	<div class="form-group">
+		{{field.label_tag}}
+		{{field.errors}}
+		{{field}}
+		
+	</div>
+	{% endfor %}
+	<input type="submit" value="send mail">
+</form>
+{{message}}
+
+{% endblock %}

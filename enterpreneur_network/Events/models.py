@@ -6,9 +6,10 @@ from django.core.exceptions import ValidationError
 from django.shortcuts import reverse
 from django.conf import settings
 
+
 class Venue(models.Model):
     name = models.CharField('Venue Name', max_length=120)
-    address = models.CharField(max_length=300,blank=True, null=True)
+    address = models.CharField(max_length=300)
     zip_code = models.CharField('Zip/Post Code', max_length=12,blank=True, null=True)
 
     VENUE_STATUS = (
@@ -117,3 +118,8 @@ class Event(models.Model):
 	def __str__(self):
 		return self.name
 
+class Slides(models.Model):
+	pic = models.ImageField(default=True)
+
+class YoutubeUrl(models.Model):
+	url = models.URLField(help_text="Enter Youtube Url")

@@ -1,57 +1,46 @@
-{% extends 'base.html' %}
+{% extends 'generic_base.html' %}
+
 {% block content %}
-
-
-
-
-<div class="container mt-4">
-          <!-- Form -->
-                <form name="" >
-                  <!-- Heading -->
-                  <h3 class="dark-grey-text text-center">
-                    <strong>Contact Us</strong>
-                  </h3>
-                  <hr>
-
-                  <div class="md-form">
-                    <i class="fas fa-user prefix grey-text"></i>
-                    <input type="text" id="form3" class="form-control">
-                    <label for="form3">Your name</label>
-                  </div>
-                  <div class="md-form">
-                    <i class="fas fa-envelope prefix grey-text"></i>
-                    <input type="text" id="form2" class="form-control">
-                    <label for="form2">Your email</label>
-                  </div>
-
-                  <div class="md-form">
-                    <i class="fas fa-pencil-alt prefix grey-text"></i>
-                    <textarea type="text" id="form8" class="md-textarea"></textarea>
-                    <label for="form8">Your message</label>
-                  </div>
-
-                  <div class="text-center">
-                    <button class="btn btn-indigo">Send</button>
-                    <hr>
-                    
-                  </div>
-
-                </form>
-                <!-- Form -->
-           </div>
-
-<form action="{% url 'Articles:contact-us' %}" method="post">
-	{% csrf_token %}
-	{% for field in form %}
-	<div class="form-group">
-		{{field.errors}}
-		{{field}}
-		{{field.label_tag}}
-	</div>
-	{% endfor %}
-	<input type="submit" value="Send">
-</form>
-
-{{email_status}}
-
+<main class="mt-5 pt-5">
+  {% if email_status %}
+    <div class=" container alert alert-info" role="alert">
+      <h5 style="text-align: center;">{{email_status}}</h5>
+    </div>  
+  {% endif %}
+<div class="container mt-5">
+  <form action="{% url 'Articles:contact-us' %}" method="post">
+    {% csrf_token %}
+    <!-- Heading -->
+    <h3 class="dark-grey-text text-center">
+      <strong>CONTACT US</strong>
+    </h3>
+    <div class="md-form">
+      <i class="fas fa-user prefix text-info "></i>
+        <!-- input -->
+        {{form.name}} 
+        <!-- label -->
+        {{form.name.label_tag}}
+    </div>
+    <div class="md-form">
+      <i class="fas fa-envelope prefix text-info "></i>
+        <!-- input -->
+        {{form.email}}
+        <!-- label -->
+        {{form.email.label_tag}}
+    </div>
+    <div class="md-form">
+      <i class="fas fa-pencil-alt text-info prefix"></i>
+        <!-- input -->
+        {{form.message}}
+        <!-- label -->
+        {{form.message.label_tag}}
+    </div>
+    <!-- button|send -->
+    <div class="text-center">
+      <button type="submit" class="btn btn-info">Send</button>
+    </div>
+  </form>
+  <!-- Form -->
+</div>
+</main>
 {% endblock %}
