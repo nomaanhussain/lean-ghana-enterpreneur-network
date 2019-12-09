@@ -1,5 +1,5 @@
 from django.contrib import admin
-from Events.models import Event, Venue, Organizer, RegisteredUser, Category
+from Events.models import Event, Venue, Organizer, RegisteredUser, Category,Slides ,YoutubeUrl
 from django.template.response import TemplateResponse
 from django.urls import path
 from Events.forms import WebinarMailForm
@@ -7,7 +7,7 @@ from django.shortcuts import render ,get_object_or_404
 from django.http import Http404
 from django.conf import settings
 from django.core.mail import send_mail, BadHeaderError
-admin.site.register([RegisteredUser, Category])
+admin.site.register([RegisteredUser, Category,Slides,YoutubeUrl])
 from django.http import HttpResponse, HttpResponseRedirect
 
 

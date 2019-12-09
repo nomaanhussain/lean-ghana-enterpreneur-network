@@ -113,7 +113,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'enterpreneur_network',
         'USER': 'postgres',
-        'PASSWORD': '***',
+        'PASSWORD': '13132001Aa',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }

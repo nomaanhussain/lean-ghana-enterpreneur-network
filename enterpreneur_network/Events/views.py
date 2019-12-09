@@ -2,7 +2,7 @@
 from requests.utils import requote_uri
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import (ListView,DetailView,View)
-from Events.models import Event
+from Events.models import Event,Slides,YoutubeUrl
 from Articles.models import Article
 # import datetime
 from django.core.exceptions import ObjectDoesNotExist
@@ -27,15 +27,21 @@ def homepage(request):
 	featured = Article.objects.filter(featured='True', status__exact='p').order_by('-timestamp')[0:3]
 	latest = Article.objects.filter(status__exact='p').order_by('-timestamp')[0:3]
 	month_event = Event.objects.filter( Event_Show_Status__exact='e',label='o').order_by('day')[0:2]
-	print("month_event",month_event)
 	event_one = month_event[0]
 	event_two = month_event[1]
+	slide_current = Slides.objects.all()[0]
+	slides= Slides.objects.all()[1:5]
+	Youtube = YoutubeUrl.objects.all()[0]
+	print("YoutubeUrl",Youtube)
 
 	context = {
 		'featured':featured,
 		'latest' :latest,
 		'event_one': event_one,
-		'event_two':event_two
+		'event_two':event_two,
+		'slide_current':slide_current,
+		'slides':slides,
+		'Youtube':Youtube
 	}
 	return render(request,'Events/Homepage.html',context)
 
